@@ -16,8 +16,9 @@
   with_items:
     - "apt-transport-https"
     - "ca-certificates"
-    - "python-pip"
+    - "curl"
     - "software-properties-common"
+    - "python-pip"
     - "linux-image-extra-{{ ansible_kernel }}"
   when: ansible_os_family == "Debian"
   become: yes
@@ -47,15 +48,16 @@
   tags:
     - docker
 
-- name: 'Install docker-py'
-  pip:
-    name: docker-py
-    state: present
-  become: yes
-  tags:
-    - docker
-    - pip
-    - python
+# - name: 'Install docker-py'
+  # pip:
+    # name: docker-py
+    # version: "{{ docker_py_version | default(omit) }}"
+    # state: present
+  # become: yes
+  # tags:
+    # - docker
+    # - pip
+    # - python
 
 - name: ensure docker is started and enabled
   service:
