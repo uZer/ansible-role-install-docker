@@ -68,4 +68,21 @@
   tags:
     - docker
     - service
+
+- name: configure overlay2
+  template:
+    backup: yes
+    src: etc-docker-daemon.json.j2
+    dest: /etc/docker/daemon.json
+    mode: '0755'
+    owner: root
+    group: root
+  become: yes
+  tags:
+    - docker
+  notify:
+    - restart docker
+    # - stop docker
+    # - start docker
+
 # vim:ft=ansible:
